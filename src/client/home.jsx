@@ -18,17 +18,18 @@ export class Home extends Component{
     }
 
     fetchUser = async () => {
-        const response = await fetch('/user')
+        const response = await fetch('/user', {
+            method: 'GET',
+            credentials: 'include',
+          })
         if(response.status === 200){
             const payload = await response.json()
-            console.log(payload.userId)
-            updateLoggedInUserId(payload.userId)
+            this.updateLoggedInUserId(payload.userId)
         }
     }
 
     updateLoggedInUserId = (userId) => {
         this.setState({userId: userId});
-        console.log("userId in home " + this.state.userId)
     };
 
     render(){

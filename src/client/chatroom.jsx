@@ -8,8 +8,7 @@ export class Chatroom extends Component{
         this.state = {
             name: "Anonymous",
             text: "",
-            messages: null,
-            userId: null
+            messages: null
         };
     }
 

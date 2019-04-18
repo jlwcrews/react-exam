@@ -12,7 +12,7 @@ export class MenuBar extends Component{
         }
     }
 
-    async componentDidMount(props){
+    async componentDidMount(){
         this.setState({
             userId: this.props.userId,
             callback: this.props.callback 
@@ -32,6 +32,7 @@ export class MenuBar extends Component{
         const payload = {userId: userId, password: password}
         const response = await fetch("/login", {
             method: "post",
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -67,7 +68,7 @@ export class MenuBar extends Component{
             return(
                 <div id = "menuBar">
                     <span id="username">
-                        {this.state.userId}
+                        {this.props.userId}
                     </span>
                     <span id="logout">
                         <button id="logoutButton" onClick={this.userLogout}>Logout</button>
