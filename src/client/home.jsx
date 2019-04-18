@@ -13,12 +13,11 @@ export class Home extends Component{
         }
     }
 
-    componentDidUpdate = async () => {
+    async componentDidMount() {
         const response = await fetch('/user')
-        console.log(response.status)
         if(response.status === 200){
-            const payload = response.json()
-            console.log("payload info: " + payload.userId)
+            const payload = await response.json()
+            this.setState({userId: payload.userId})
         }
     }
 

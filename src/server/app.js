@@ -15,10 +15,17 @@ const session = require("express-session");
 let messageCounter = 0;
 const chatMessages = []
 
-app.use(bodyParser.json())
+app.use(cors());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+    secret: '19283745691827364',
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 //this section handles requests involving dishes
 app.get("/dishes", (req, res) => {
@@ -71,13 +78,6 @@ app.ws('/', function(ws, req) {
     })
 });
 
-//authentication
-app.use(session({
-    secret: '19283745691827364',
-    resave: false,
-    saveUninitialized: false
-}));
-
 passport.use(new LocalStrategy(
     {
         usernameField: 'userId',
@@ -116,7 +116,7 @@ app.get('/user', (req, res) => {
         res.json({
             userId: req.user.id
         });
-        res.status(200).send()
+        return;
     }
 
     res.status(401).send();
@@ -131,10 +131,10 @@ app.post('/logout', function(req, res){
     res.status(204).send();
 });
 
-//section handling serving static files and 404
 app.use(express.static('public'))
 app.use((req, res, next) => {
     res.sendFile(path.resolve(__dirname, '..', '..', 'public', 'index.html'));
 });
+
 
 module.exports = app;
