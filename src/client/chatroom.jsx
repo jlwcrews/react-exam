@@ -36,8 +36,8 @@ export class Chatroom extends Component{
         this.setState({text: event.target.value});
     };
 
-    sendMsg = () => {
-        const payload = JSON.stringify({author: this.state.name, text: this.state.text});
+    sendMsg = (userId) => {
+        const payload = JSON.stringify({author: userId, text: this.state.text});
         this.socket.send(payload);
         this.setState({text: ""});
     };
@@ -75,7 +75,7 @@ export class Chatroom extends Component{
                     </div>
                     <br/>
 
-                    <div id="sendId" className="btn" onClick={this.sendMsg}>Send</div>
+                    <div id="sendId" className="btn" onClick={() => this.sendMsg(this.state.name)}>Send</div>
                 </div>
             );
         } else {
@@ -96,7 +96,7 @@ export class Chatroom extends Component{
                     </div>
                     <br/>
 
-                    <div id="sendId" className="btn" onClick={this.sendMsg}>Send</div>
+                    <div id="sendId" className="btn" onClick={() => this.sendMsg(this.props.userId)}>Send</div>
                 </div>
             );
         }

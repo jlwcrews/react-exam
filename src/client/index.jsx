@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {Home} from './home'
 import {AddDish} from './adddish'
 import {EditDish} from './editdish'
+import {EditMenu} from './editmenu'
 
 const App = () =>{
 
@@ -13,6 +14,7 @@ const App = () =>{
             <div>
                 <Switch>
                     <Route exact path='/' component={Home}/>
+                    <Route path='/editMenu' component={EditMenu}/>
                     <Route path='/editDish' component={EditDish}/>
                     <Route path='/addDish' component={AddDish}/>
                 </Switch>

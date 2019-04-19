@@ -1,73 +1,49 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
-import {Chatroom} from './chatroom'
-import {MenuBar} from './menubar'
+import ReactDOM from 'react-dom'
+import {Menu} from './menu'
 
 export class EditMenu extends Component{
-    
+
     constructor(props){
         super(props)
         this.state = {
-            dishes: [],
-            menus: [],
-            error: null
+            day: null,
+            dishes: []
         }
-    }
-
-    getDishes = async () => {
-        const response = await fetch("/dishes")
-        const json = await response.json()
-        this.setState({
-            dishes: json
-        })
+        this.id = new URLSearchParams(window.location.search).get("menu");
     }
 
     async componentDidMount(){
-        this.getDishes()
+        const response = await fetch("/menu/" + this.id)
+        const body = await response.json()
+        this.setState(
+            {day: body.day,
+             dishes: body.dishes
+            })
     }
 
-    deleteDish = async (id) => {
+    submitMenuChanges = async (day) => {
 
-        const url = "/dish/" + id;
-        let response;
-        response = await fetch(url, {method: "delete"});
-        this.getDishes();
-        return true;
-    };
+        const id = this.id
+        const payload = {id, day, dishes}
+        const response = await fetch("/menu/" + id, {
+            method: "put",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        this.props.history.push('/')
+    }
 
     render(){
-
-
-        const {dishes, error} = this.state
-        
-        let table = <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                {dishes.map(c =>
-                    <tr key={"key_" + c.id}>
-                        <td id="tdId">{c.id}</td>
-                        <td id="tdName">{c.name}</td>
-                        <td id="tdType">{c.type}</td>
-                        <td><Link to={"/editDish?dish=" + c.id}><button className="btn">Edit</button></Link></td>
-                        <td><button className="btn" onClick={() => this.deleteDish(c.id)}>Delete</button></td>
-                        </tr>
-                )}
-            </tbody>
-        </table>;
-
-
-        return (
-            <div className="container">
-                <div>
-                    <Link to={"/addDish"}><button id="addBtn" className="btn">New Dish</button></Link>
-                </div>
-                {table}
+        return(
+            <div>
+                <Menu 
+                    day={this.state.day}
+                    dishes={this.state.dishes} 
+                    callback={this.submitMenuChanges}/>
             </div>
         )
     }

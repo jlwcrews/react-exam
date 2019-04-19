@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {Chatroom} from './chatroom'
-import {MenuBar} from './menubar'
-import {Menu} from './menu'
+import {TopBar} from './topbar'
+import {ShowMenus} from './showmenus'
 
 export class Home extends Component{
 
@@ -36,13 +36,14 @@ export class Home extends Component{
         return (
             <div className="container">
                 <div id="topDiv">
-                    <MenuBar 
+                    <TopBar 
                         userId={this.state.userId} 
                         callback={this.updateLoggedInUserId}/>
                 </div>
                 <div id="middleDiv">
                     <div id="menuDiv">
-                        <Menu/>
+                        <ShowMenus
+                            userId={this.state.userId}/>
                     </div>
                     <div id="chatroomDiv">
                         <Chatroom

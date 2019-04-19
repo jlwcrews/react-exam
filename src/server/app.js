@@ -1,11 +1,12 @@
 const express = require('express')
 const app = express()
-const repo = require('./repo.js')
 const path = require('path');
 const bodyParser = require('body-parser');
 const ews = require('express-ws')(app);
 const WebSocket = require('ws');
-const Users = require('./users');
+const UserRepo = require('./userrepo');
+const DishRepo = require('./dishrepo');
+const MenuRepo = require('./menurepo');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
@@ -29,25 +30,25 @@ app.use(passport.session());
 
 //this section handles requests involving dishes
 app.get("/dishes", (req, res) => {
-    const dishes = repo.getDishes()
+    const dishes = DishRepo.getDishes()
     res.send(dishes)
 })
 
 app.get("/dish/:id", (req, res) => {
     const id = req.params["id"]
-    const dish = repo.getDish(id)
+    const dish = DishRepo.getDish(id)
     res.json(dish)
 })
 
 app.delete("/dish/:id", (req, res) => {
     const id = req.params["id"]
     console.log("Id in app.js: " + id)
-    res.json(repo.deleteDish(id))
+    res.json(DishRepo.deleteDish(id))
 })
 
 app.post("/dish", (req, res) => {
     const body = req.body
-    res.json("/dish/" + repo.addDish(body.name, body.type))
+    res.json("/dish/" + DishRepo.addDish(body.name, body.type))
 })
 
 app.put("/dish/:id", (req, res) => {
@@ -58,7 +59,39 @@ app.put("/dish/:id", (req, res) => {
         name: body.name,
         type: body.type
     }
-    res.json(repo.updateDish(id, dish))
+    res.json(DishRepo.updateDish(id, dish))
+})
+
+//this section handles requests involving menus
+app.get("/menus", (req, res) => {
+    const menus = MenuRepo.getMenus()
+    res.send(menus)
+})
+
+app.get("/menu/:id", (req, res) => {
+    const id = req.params["id"]
+    const menu = MenuRepo.getMenu(id)
+    res.json(menu)
+})
+
+app.delete("/menu/:id", (req, res) => {
+    const id = req.params["id"]
+    res.json(MenuRepo.deleteMenu(id))
+})
+
+app.post("/menu", (req, res) => {
+    const body = req.body
+    res.json("/menu/" + MenuRepo.addMenu(body.day))
+})
+
+app.put("/menu/:id", (req, res) => {
+    const id = req.params["id"]
+    const body = req.body
+    const menu = {
+        id: body.id,
+        day: body.day
+    }
+    res.json(MenuRepo.updateMenu(id, menu))
 })
 
 
@@ -85,13 +118,13 @@ passport.use(new LocalStrategy(
     },
     function (userId, password, done) {
 
-        const ok = Users.verifyUser(userId, password);
+        const ok = UserRepo.verifyUser(userId, password);
 
         if (!ok) {
             return done(null, false, {message: 'Invalid username/password'});
         }
 
-        const user = Users.getUser(userId);
+        const user = UserRepo.getUser(userId);
         return done(null, user);
     }
 ));
@@ -102,7 +135,7 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (id, done) {
 
-    const user = Users.getUser(id);
+    const user = UserRepo.getUser(id);
 
     if (user !== undefined) {
         done(null, user);

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 
-export class MenuBar extends Component{
+export class TopBar extends Component{
 
     constructor(props){
         super(props)
