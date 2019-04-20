@@ -1,17 +1,29 @@
 import React, {Component} from 'react'
+import { withRouter } from 'react-router'
 
-export class Menu extends Component{
+class Menu extends Component{
 
     constructor(props){
         super(props)
         this.state = {
-                day: "",
-                dishes: [],
-                allDishes: []
+            id: null,
+            menu: null,
+            allDishes: []
             }
     }
 
-    componentDidMount = async () => {
+    componentDidMount(){
+        this.getDishes()
+    }
+
+    componentWillReceiveProps(newProps){
+        this.setState({
+            id: newProps.id,
+            menu: newProps.menu
+        })
+    }
+
+    getDishes = async () => {
         const response = await fetch('/dishes')
         const body = await response.json()
         this.setState({
@@ -19,32 +31,43 @@ export class Menu extends Component{
         })
     }
 
-    componentWillReceiveProps(newProps){
-        let currentDishes = []
-        this.state.allDishes.map( d => {
-            if (d.id in allDishes.id) {     
-                currentDishes.add(allDishes[d])
-        }})
-        
-        this.setState({
-            day: newProps.day,
-            dishes: newProps.dishes,
-            callback: newProps.callback
+    addDish = (dish) => {
+        let currentDishes = this.state.dishes
+        currentDishes.push(dish)
+        this.setState({dishes: currentDishes})
+    }
+
+    removeDish = (dish) => {
+        console.log("dish in removeDish: " + dish)
+        let currentDishes = this.state.dishes
+        currentDishes.map( (d, index) => {
+            if(d.id === dish.id){
+                currentDishes.splice(index, 1)
+            }
         })
     }
 
+    postMenuChanges = async () => {
+        const {id, menu} = this.state
+        const payload = {id, menu}
+        const response = await fetch("/menu/" + id, {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
 
-    onFormSubmit = async (event) => {
-        event.preventDefault();
+        const tr = await fetch('/menus')
+        const rt = await tr.json()
+        console.log("in Menus: " + JSON.stringify(rt))
 
-        const ok = await this.props.callback(
-            this.state.day
-        )
+        this.props.history.push('/')
     }
 
-    render(){
 
-        const {dishes, day, allDishes} = this.state
+    render(){
+        const {allDishes, menu} = this.state
 
         let menuTable = <table>
             <thead>
@@ -55,23 +78,31 @@ export class Menu extends Component{
                 </tr>
             </thead>
             <tbody>
-                {dishes.map(d =>
-                    <tr key={"key_" + d}>
+                {menu.map((d, index) =>
+                    <tr key={"key_" + index}>
                         <td>
-                            {d}
+                            {d.id}
+                        </td>
+                        <td>
+                            {d.name}
+                        </td>
+                        <td>
+                            {d.type}
+                        </td>
+                        <td>
+                            <button onClick={() => this.removeDish(d)}>Remove</button>
                         </td>
                     </tr>
-                
                 )}
             </tbody>
         </table>;
 
-        let availableDishesTable = <table>
+        let dishTable = <table>
         <thead>
             <tr>
-                <th>Dish</th>
+                <th>Id</th>
+                <th>Name</th>
                 <th>Type</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -86,22 +117,28 @@ export class Menu extends Component{
                     <td>
                         {d.type}
                     </td>
+                    <td>
+                        <button onClick={() => this.addDish(d)}>Add to menu</button>
+                    </td>
                 </tr>
             
             )}
         </tbody>
-    </table>;
+        </table>;
 
-         return(
+        return(
             <div>
                 <div id="titleDiv">
-                    {day}
+                    {dishes.day}
                 </div>
                 {menuTable}
                 <br/>
-                {availableDishesTable}
+                <button onClick={() => this.postMenuChanges()}>Done</button>
+                <br/>
+                {dishTable}
             </div>
         )
     }
-
 }
+
+export default withRouter(Menu)

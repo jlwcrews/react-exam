@@ -5,20 +5,28 @@ let indexMenu = 0
 populateMenus()
 
 function populateMenus(){
-    addMenu("Monday", [1, 2, 5])
-    addMenu("Tuesday", [1, 5])
-    addMenu("Wednesday", [2, 3])
-    addMenu("Thursday", [3, 4, 5])
-    addMenu("Friday", [1, 2, 3, 5])
-    addMenu("Saturday", [2, 3, 4, 5])
-    addMenu("Sunday", [1, 2, 5])
+    addMenu({
+        day:"Monday",
+        dishes:[
+            {
+            name:"Burrito", 
+            type:"Main dish"},
+            {
+            name:"Churro", 
+            type:"Dessert"}
+        ]})
+    addMenu({day:"Tuesday",dishes:[]})
+    addMenu({day:"Wednesday",dishes:[]})
+    addMenu({day:"Thursday",dishes:[]})
+    addMenu({day:"Friday",ddishes:[]})
+    addMenu({day:"Saturday",dishes:[]})
+    addMenu({day:"Sunday",dishes:[]})
 }
 
-function addMenu(day, dishes){
+function addMenu(dishes){
     const id = indexMenu
     const menu = {
         id: id,
-        day: day,
         dishes: dishes
     }
     menus.set(id, menu)

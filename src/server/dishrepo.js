@@ -12,7 +12,7 @@ function populateDishes(){
     addDish("Burrito", "Main dish")
     addDish("Enchilada", "Main dish")
     addDish("Churro", "Dessert")
-    addDish("Sopapilla", "Desert")
+    addDish("Sopapilla", "Dessert")
 }
 
 function addDish(name, type){

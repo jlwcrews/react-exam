@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import {Menu} from './menu'
+import Menu from './menu'
 
 export class EditMenu extends Component{
 
     constructor(props){
         super(props)
         this.state = {
-            day: null,
-            dishes: []
+            id: null,
+            menu: null
         }
         this.id = new URLSearchParams(window.location.search).get("menu");
     }
@@ -16,34 +16,18 @@ export class EditMenu extends Component{
     async componentDidMount(){
         const response = await fetch("/menu/" + this.id)
         const body = await response.json()
-        this.setState(
-            {day: body.day,
-             dishes: body.dishes
+        this.setState({
+            id: body.id, 
+            menu: body.dishes
             })
-    }
-
-    submitMenuChanges = async (day) => {
-
-        const id = this.id
-        const payload = {id, day, dishes}
-        const response = await fetch("/menu/" + id, {
-            method: "put",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
-
-        this.props.history.push('/')
     }
 
     render(){
         return(
             <div>
-                <Menu 
-                    day={this.state.day}
-                    dishes={this.state.dishes} 
-                    callback={this.submitMenuChanges}/>
+                <Menu
+                    id={this.state.id} 
+                    menu={this.state.menu}/> 
             </div>
         )
     }

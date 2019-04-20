@@ -35,10 +35,13 @@ export class ShowMenus extends Component{
             </thead>
             <tbody>
                 {menus.map(menu =>
+
                     <tr key={"key_" + menu.id}>
-                            <td id="tdName">{menu.day}</td>
-                            {this.props.userId !==null ? (<td><Link to={"/editMenu?menu=" + menu.id}><button className="btn">Edit</button></Link></td>) : null}
-                            </tr>
+                        <td id="tdName">
+                            {menu.dishes.day}
+                        </td>
+                        {this.props.userId !==null ? (<td><Link to={"/editMenu?menu=" + menu.id}><button className="btn">Edit</button></Link></td>) : null}
+                    </tr>
                 )}
             </tbody>
         </table>;
