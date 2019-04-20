@@ -21,12 +21,11 @@ export class ShowMenus extends Component{
         const json = await response.json()
         this.setState({
             menus: json
-        }, () => {console.log(this.state.menus)})
+        })
     }
 
     render(){
         const {userId, menus} = this.state
-        console.log(menus.dishes)
         let table = <table>
             <thead>
                 <tr>
@@ -35,21 +34,23 @@ export class ShowMenus extends Component{
             </thead>
             <tbody>
                 {menus.map(menu =>
-
                     <tr key={"key_" + menu.id}>
                         <td id="tdName">
                             {menu.dishes.day}
-                            <table>
+                            {/*<table>
                                 <tbody>
-                                    {menu.dishes.map(dish =>{
-                                        <tr>
-                                            <td>
-                                                {dish.name}
-                                            </td>
-                                        </tr>
+                                    {menu.dishes.dishes.forEach(() => {
+                                    <tr key={"key_" + menu.dishes.id}>
+                                        <td>
+                                            {menu.dishes.dishes.name}
+                                        </td>
+                                    </tr>
                                     })}
                                 </tbody>
-                            </table>
+                                </table>*/}
+                        </td>
+                        <td>
+                            {JSON.stringify(menu.dishes.dishes)}
                         </td>
                         {this.props.userId !==null ? (<td><Link to={"/editMenu?menu=" + menu.id}><button className="btn">Edit</button></Link></td>) : null}
                     </tr>
