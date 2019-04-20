@@ -5,13 +5,13 @@ let indexMenu = 0
 populateMenus()
 
 function populateMenus(){
-    addMenu({day:"Monday",dishes:[]})
-    addMenu({day:"Tuesday",dishes:[]})
-    addMenu({day:"Wednesday",dishes:[]})
-    addMenu({day:"Thursday",dishes:[]})
-    addMenu({day:"Friday",ddishes:[]})
-    addMenu({day:"Saturday",dishes:[]})
-    addMenu({day:"Sunday",dishes:[]})
+    addMenu({day:"Monday", dishes:[]})
+    addMenu({day:"Tuesday", dishes:[]})
+    addMenu({day:"Wednesday", dishes:[]})
+    addMenu({day:"Thursday", dishes:[]})
+    addMenu({day:"Friday", dishes:[]})
+    addMenu({day:"Saturday", dishes:[]})
+    addMenu({day:"Sunday", dishes:[]})
 }
 
 function addMenu(dishes){

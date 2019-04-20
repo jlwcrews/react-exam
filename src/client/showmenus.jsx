@@ -26,6 +26,7 @@ export class ShowMenus extends Component{
 
     render(){
         const {userId, menus} = this.state
+        menus.map(menu => {console.log(menu.dishes.dishes)})
         let table = <table>
             <thead>
                 <tr>
@@ -37,20 +38,17 @@ export class ShowMenus extends Component{
                     <tr key={"key_" + menu.id}>
                         <td id="tdName">
                             {menu.dishes.day}
-                            {/*<table>
+                            <table>
                                 <tbody>
-                                    {menu.dishes.dishes.forEach(() => {
-                                    <tr key={"key_" + menu.dishes.id}>
-                                        <td>
-                                            {menu.dishes.dishes.name}
-                                        </td>
-                                    </tr>
+                                    {menu.dishes.dishes.map((dish,index) => {
+                                        <tr key={"key_" + dish.id + index}>
+                                            <td>
+                                                {dish}
+                                            </td>
+                                        </tr>
                                     })}
                                 </tbody>
-                                </table>*/}
-                        </td>
-                        <td>
-                            {JSON.stringify(menu.dishes.dishes)}
+                                </table>
                         </td>
                         {this.props.userId !==null ? (<td><Link to={"/editMenu?menu=" + menu.id}><button className="btn">Edit</button></Link></td>) : null}
                     </tr>
