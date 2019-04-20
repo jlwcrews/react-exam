@@ -53,7 +53,7 @@ class Menu extends Component{
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: payload
+            body: JSON.stringify(payload)
         });
 
         this.props.history.push('/')

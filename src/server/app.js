@@ -54,7 +54,6 @@ app.post("/dish", (req, res) => {
 app.put("/dish/:id", (req, res) => {
     const id = req.params["id"]
     const body = req.body
-    console.log(body)
     const dish = {
         id: body.id,
         name: body.name,
@@ -90,7 +89,8 @@ app.put("/menu/:id", (req, res) => {
     const body = req.body
     const menu = {
         id: body.id,
-        day: body.day
+        day: body.day,
+        dishes: body.dishes
     }
     res.json(MenuRepo.updateMenu(id, menu))
 })
