@@ -27,28 +27,29 @@ export class ShowMenus extends Component{
     render(){
         const {userId, menus} = this.state
         menus.map(menu => {console.log(menu.dishes.dishes)})
-        let table = <table>
+        let table = 
+        <table>
             <thead>
                 <tr>
                     <th>Day</th>
                 </tr>
             </thead>
             <tbody>
-                {menus.map(menu =>
-                    <tr key={"key_" + menu.id}>
+                {menus.map((menu,index) =>
+                    <tr key={"key_" + menu.id + index}>
                         <td id="tdName">
                             {menu.dishes.day}
                             <table>
                                 <tbody>
-                                    {menu.dishes.dishes.map((dish,index) => {
-                                        <tr key={"key_" + dish.id + index}>
+                                    {menu.dishes.dishes.map(dish => 
+                                        <tr key={"key_" + dish.id}>
                                             <td>
-                                                {dish}
+                                                {dish.name}
                                             </td>
                                         </tr>
-                                    })}
+                                    )}
                                 </tbody>
-                                </table>
+                            </table>
                         </td>
                         {this.props.userId !==null ? (<td><Link to={"/editMenu?menu=" + menu.id}><button className="btn">Edit</button></Link></td>) : null}
                     </tr>
