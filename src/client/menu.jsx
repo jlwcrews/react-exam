@@ -6,21 +6,17 @@ class Menu extends Component{
     constructor(props){
         super(props)
         this.state = {
-            id: null,
-            menu: null,
+            id: "",
+            menu: {dishes: []},
             allDishes: []
             }
     }
 
     componentDidMount(){
         this.getDishes()
-    }
-
-    componentWillReceiveProps(newProps){
-        console.log(newProps)
         this.setState({
-            id: newProps.id,
-            menu: newProps.menu
+            id: this.props.id,
+            menu: this.props.menu
         })
     }
 
@@ -33,46 +29,39 @@ class Menu extends Component{
     }
 
     addDish = (dish) => {
-        let currentDishes = this.state.dishes
-        currentDishes.push(dish)
-        this.setState({dishes: currentDishes})
+        let currentMenu = this.state.menu
+        currentMenu.dishes.push(dish)
+        this.setState({menu: currentMenu})
     }
 
-    /*removeDish = (dish) => {
-        console.log("dish in removeDish: " + dish)
-        let currentDishes = this.state.dishes
-        currentDishes.map( (d, index) => {
+    removeDish = (dish) => {
+        let currentMenu = this.state.menu
+        currentMenu.dishes.map( (d, index) => {
             if(d.id === dish.id){
-                currentDishes.splice(index, 1)
+                currentMenu.dishes.splice(index, 1)
             }
+            this.setState({menu: currentMenu})
         })
     }
 
     postMenuChanges = async () => {
         const {id, menu} = this.state
-        const payload = {id, menu}
+        const dishes = menu
+        const payload = {id, dishes}
         const response = await fetch("/menu/" + id, {
-            method: "post",
+            method: "put",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(payload)
+            body: payload
         });
 
-        const tr = await fetch('/menus')
-        const rt = await tr.json()
-        console.log("in Menus: " + JSON.stringify(rt))
-
         this.props.history.push('/')
-    }*/
-
+    }
 
     render(){
         const {allDishes, menu} = this.state
-        console.log("Menu day: " + menu.day)
-        console.log("Menu dishes: " + menu.dishes)
-
-        /*let menuTable = <table>
+        let menuTable = <table>
             <thead>
                 <tr>
                     <th>Dishes</th>
@@ -81,8 +70,8 @@ class Menu extends Component{
                 </tr>
             </thead>
             <tbody>
-                {menu.map(dishes, (d, index) =>
-                    <tr key={"key_" + index}>
+                {menu.dishes.map((d) =>
+                    <tr key={"key_" + d.id}>
                         <td>
                             {d.id}
                         </td>
@@ -98,7 +87,8 @@ class Menu extends Component{
                     </tr>
                 )}
             </tbody>
-        </table>;*/
+        </table>;
+    
 
         let dishTable = <table>
         <thead>
@@ -132,7 +122,7 @@ class Menu extends Component{
         return(
             <div>
                 <div id="titleDiv">
-                    {dishes.day}
+                    {menu.day}
                 </div>
                 {menuTable}
                 <br/>

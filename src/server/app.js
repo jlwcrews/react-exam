@@ -54,6 +54,7 @@ app.post("/dish", (req, res) => {
 app.put("/dish/:id", (req, res) => {
     const id = req.params["id"]
     const body = req.body
+    console.log(body)
     const dish = {
         id: body.id,
         name: body.name,

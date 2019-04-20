@@ -5,16 +5,7 @@ let indexMenu = 0
 populateMenus()
 
 function populateMenus(){
-    addMenu({
-        day:"Monday",
-        dishes:[
-            {
-            name:"Burrito", 
-            type:"Main dish"},
-            {
-            name:"Churro", 
-            type:"Dessert"}
-        ]})
+    addMenu({day:"Monday",dishes:[]})
     addMenu({day:"Tuesday",dishes:[]})
     addMenu({day:"Wednesday",dishes:[]})
     addMenu({day:"Thursday",dishes:[]})
