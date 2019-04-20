@@ -17,6 +17,7 @@ class Menu extends Component{
     }
 
     componentWillReceiveProps(newProps){
+        console.log(newProps)
         this.setState({
             id: newProps.id,
             menu: newProps.menu
@@ -37,7 +38,7 @@ class Menu extends Component{
         this.setState({dishes: currentDishes})
     }
 
-    removeDish = (dish) => {
+    /*removeDish = (dish) => {
         console.log("dish in removeDish: " + dish)
         let currentDishes = this.state.dishes
         currentDishes.map( (d, index) => {
@@ -63,13 +64,15 @@ class Menu extends Component{
         console.log("in Menus: " + JSON.stringify(rt))
 
         this.props.history.push('/')
-    }
+    }*/
 
 
     render(){
         const {allDishes, menu} = this.state
+        console.log("Menu day: " + menu.day)
+        console.log("Menu dishes: " + menu.dishes)
 
-        let menuTable = <table>
+        /*let menuTable = <table>
             <thead>
                 <tr>
                     <th>Dishes</th>
@@ -78,7 +81,7 @@ class Menu extends Component{
                 </tr>
             </thead>
             <tbody>
-                {menu.map((d, index) =>
+                {menu.map(dishes, (d, index) =>
                     <tr key={"key_" + index}>
                         <td>
                             {d.id}
@@ -95,7 +98,7 @@ class Menu extends Component{
                     </tr>
                 )}
             </tbody>
-        </table>;
+        </table>;*/
 
         let dishTable = <table>
         <thead>

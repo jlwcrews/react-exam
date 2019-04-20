@@ -13,9 +13,10 @@ export class EditMenu extends Component{
         this.id = new URLSearchParams(window.location.search).get("menu");
     }
 
-    async componentDidMount(){
+    componentDidMount = async () => {
         const response = await fetch("/menu/" + this.id)
         const body = await response.json()
+        console.log("componentDidMount in EditMenu: " + JSON.parse(body))
         this.setState({
             id: body.id, 
             menu: body.dishes
@@ -23,11 +24,13 @@ export class EditMenu extends Component{
     }
 
     render(){
+
+        const {menu, id} = this.state
         return(
             <div>
                 <Menu
-                    id={this.state.id} 
-                    menu={this.state.menu}/> 
+                    id={id} 
+                    menu={menu}/> 
             </div>
         )
     }
