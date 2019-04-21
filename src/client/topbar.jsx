@@ -58,10 +58,10 @@ export class TopBar extends Component{
             return(
                 <div id = "menuBar">
                     <span id="username">
-                        <input type="text" name="username" placeholder="username" onChange={this.onUserIdChange} required/>
+                        <input id = "usernameInput" type="text" name="username" placeholder="username" onChange={this.onUserIdChange} required/>
                     </span>
                     <span id="password">
-                        <input type="password" name="password" placeholder="password" onChange={this.onPasswordChange} required/>
+                        <input id ="passwordInput" type="password" name="password" placeholder="password" onChange={this.onPasswordChange} required/>
                     </span>
                     <span id="login">
                         <button className="small blue button" id="loginButton" onClick={this.userLogin}>Login</button>

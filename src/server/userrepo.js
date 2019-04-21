@@ -7,6 +7,10 @@ function populateUsers() {
     createUser("test", "password");
 }
 
+function resetUsers() {
+    users.clear();
+}
+
 function getUser(id){
 
     return users.get(id);
@@ -41,5 +45,6 @@ function createUser(id, password){
 module.exports = {
     createUser,
     verifyUser,
-    getUser
+    getUser,
+    resetUsers
 }

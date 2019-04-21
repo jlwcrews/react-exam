@@ -65,7 +65,7 @@ app.put("/dish/:id", (req, res) => {
 //this section handles requests involving menus
 app.get("/menus", (req, res) => {
     const menus = MenuRepo.getMenus()
-    res.send(menus)
+    res.json(menus)
 })
 
 app.get("/menu/:id", (req, res) => {

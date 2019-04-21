@@ -51,5 +51,6 @@ module.exports = {
     getDish,
     addDish,
     deleteDish,
-    updateDish
+    updateDish,
+    populateDishes
 }

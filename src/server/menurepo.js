@@ -49,5 +49,6 @@ module.exports = {
     getMenu,
     addMenu,
     deleteMenu,
-    updateMenu
+    updateMenu,
+    populateMenus
 }

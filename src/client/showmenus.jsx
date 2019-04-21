@@ -26,7 +26,7 @@ export class ShowMenus extends Component{
     render(){
         const {userId, menus} = this.state
         let table = 
-        <table>
+        <table id="menuTable">
             <thead>
                 <tr>
                     <th>Day</th>
@@ -37,7 +37,7 @@ export class ShowMenus extends Component{
                     <tr key={"key_" + menu.id + index}>
                         <td id="tdName">
                             {menu.dishes.day}
-                            <table>
+                            <table id="dishesTable">
                                 <tbody>
                                     {menu.dishes.dishes.map(dish => 
                                         <tr key={"key_" + dish.id}>
