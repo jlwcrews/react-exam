@@ -16,7 +16,7 @@ export class ShowMenus extends Component{
     }
 
     getMenus = async () => {
-        const response = await fetch("/menus")
+        const response = await fetch("/menus", {method: "GET"})
         const json = await response.json()
         this.setState({
             menus: json
@@ -24,7 +24,7 @@ export class ShowMenus extends Component{
     }
 
     render(){
-        const {userId, menus} = this.state
+        const {menus} = this.state
         let table = 
         <table id="menuTable">
             <thead>

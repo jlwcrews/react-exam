@@ -1,3 +1,4 @@
+const { app } = require('../../src/server/app')
 import React from 'react'
 import { Home } from '../../src/client/home'
 import { TopBar } from '../../src/client/topbar'
@@ -6,7 +7,7 @@ import Menu from '../../src/client/menu'
 import { shallow, mount,  } from 'enzyme'
 import { MemoryRouter } from 'react-router';
 const {stubFetch, flushPromises, overrideFetch, asyncCheckCondition, overrideWebSocket} = require('../mytest-utils');
-const app = require('../../src/server/app');
+
 const menuRepo = require('../../src/server/menuRepo')
 
 describe('TopBar component', () =>{

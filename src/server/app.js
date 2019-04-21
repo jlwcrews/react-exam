@@ -1,7 +1,7 @@
 const express = require('express')
-const app = express()
 const path = require('path');
 const bodyParser = require('body-parser');
+const app = express()
 const ews = require('express-ws')(app);
 const WebSocket = require('ws');
 const UserRepo = require('./userrepo');
@@ -11,7 +11,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const session = require("express-session");
-
 
 let messageCounter = 0;
 const chatMessages = []
