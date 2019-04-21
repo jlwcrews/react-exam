@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 import Menu from './menu'
 
 export class EditMenu extends Component{

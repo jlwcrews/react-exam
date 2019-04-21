@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { withRouter } from 'react-router'
+import {Link} from 'react-router-dom'
 
 class Menu extends Component{
 
@@ -44,6 +45,13 @@ class Menu extends Component{
         })
     }
 
+    deleteDish = async (dish) => {
+        const url = "/dish/" + dish.id;
+        const response = await fetch(url, {method: "delete"});
+        this.removeDish(dish)
+        this.getDishes();
+};
+
     postMenuChanges = async () => {
         const {id, menu} = this.state
         const dishes = menu
@@ -64,8 +72,8 @@ class Menu extends Component{
         let menuTable = <table>
             <thead>
                 <tr>
-                    <th>Dishes</th>
                     <th></th>
+                    <th>Dishes</th>
                     <th></th>
                 </tr>
             </thead>
@@ -73,27 +81,23 @@ class Menu extends Component{
                 {menu.dishes.map((d) =>
                     <tr key={"key_" + d.id}>
                         <td>
-                            {d.id}
-                        </td>
-                        <td>
                             {d.name}
                         </td>
                         <td>
                             {d.type}
                         </td>
                         <td>
-                            <button onClick={() => this.removeDish(d)}>Remove</button>
+                            <button className="small green button"onClick={() => this.removeDish(d)}>Remove</button>
                         </td>
                     </tr>
                 )}
             </tbody>
         </table>;
-    
 
         let dishTable = <table>
         <thead>
             <tr>
-                <th>Id</th>
+                <th></th>
                 <th>Name</th>
                 <th>Type</th>
             </tr>
@@ -102,7 +106,8 @@ class Menu extends Component{
             {allDishes.map(d =>
                 <tr key={"key_" + d.id}>
                     <td>
-                        {d.id}
+                        <Link to={"/editDish?dish=" + d.id}><button className="small green button">Edit</button></Link>
+                        <button className="small green button" onClick={() => this.deleteDish(d)}>Delete</button>
                     </td>
                     <td>
                         {d.name}
@@ -111,7 +116,7 @@ class Menu extends Component{
                         {d.type}
                     </td>
                     <td>
-                        <button onClick={() => this.addDish(d)}>Add to menu</button>
+                        <button className="small green button" onClick={() => this.addDish(d)}>Add to menu</button>
                     </td>
                 </tr>
             
@@ -120,15 +125,16 @@ class Menu extends Component{
         </table>;
 
         return(
-            <div>
+            <div id="menuDiv">
                 <div id="titleDiv">
                     {menu.day}
                 </div>
                 {menuTable}
-                <br/>
-                <button onClick={() => this.postMenuChanges()}>Done</button>
-                <br/>
-                {dishTable}
+                <div id="availableDishes">
+                    <Link to={"/addDish"}><button className="small red button">Create new dish</button></Link>
+                    {dishTable}
+                    </div>
+                 <button className="small red button" onClick={() => this.postMenuChanges()}>Done</button>
             </div>
         )
     }

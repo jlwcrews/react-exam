@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 import {Dish} from './dish.jsx'
 
 export class AddDish extends Component {
@@ -19,7 +18,7 @@ export class AddDish extends Component {
             body: JSON.stringify(payload)
         });
 
-        this.props.history.push('/')
+        this.props.history.goBack()
     }
 
     render(){

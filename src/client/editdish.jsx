@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 import {Dish} from './dish'
 
 export class EditDish extends Component{
@@ -32,7 +31,7 @@ export class EditDish extends Component{
             body: JSON.stringify(payload)
         });
 
-        this.props.history.push('/')
+        this.props.history.goBack();
     }
 
     render(){

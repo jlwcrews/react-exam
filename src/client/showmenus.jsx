@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 import {Link} from 'react-router-dom'
 
 export class ShowMenus extends Component{
@@ -26,7 +25,6 @@ export class ShowMenus extends Component{
 
     render(){
         const {userId, menus} = this.state
-        menus.map(menu => {console.log(menu.dishes.dishes)})
         let table = 
         <table>
             <thead>
@@ -51,7 +49,7 @@ export class ShowMenus extends Component{
                                 </tbody>
                             </table>
                         </td>
-                        {this.props.userId !==null ? (<td><Link to={"/editMenu?menu=" + menu.id}><button className="btn">Edit</button></Link></td>) : null}
+                        {this.props.userId !==null ? (<td><Link to={"/editMenu?menu=" + menu.id}><button className="small green button">Edit</button></Link></td>) : null}
                     </tr>
                 )}
             </tbody>
@@ -59,7 +57,7 @@ export class ShowMenus extends Component{
 
 
         return (
-            <div className="container">
+            <div>
                 <div id="titleDiv">
                     Menus for the week
                 </div>

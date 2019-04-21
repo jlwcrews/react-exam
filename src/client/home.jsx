@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 import {Chatroom} from './chatroom'
 import {TopBar} from './topbar'
 import {ShowMenus} from './showmenus'

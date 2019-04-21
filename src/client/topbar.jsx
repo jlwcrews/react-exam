@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 
 export class TopBar extends Component{
 
@@ -41,6 +40,11 @@ export class TopBar extends Component{
 
         if(response.status === 204){
             this.props.callback(this.state.userId)
+            document.getElementById("errorLogin").style.display = "none"
+        }
+
+        if(response.status === 401){
+            document.getElementById("errorLogin").style.display = "inline"
         }
     }
 
@@ -60,7 +64,10 @@ export class TopBar extends Component{
                         <input type="password" name="password" placeholder="password" onChange={this.onPasswordChange} required/>
                     </span>
                     <span id="login">
-                        <button id="loginButton" onClick={this.userLogin}>Login</button>
+                        <button className="small blue button" id="loginButton" onClick={this.userLogin}>Login</button>
+                    </span>
+                    <span id="errorLogin">
+                        Invalid username or password
                     </span>
                 </div>
            )
@@ -71,7 +78,7 @@ export class TopBar extends Component{
                         {this.props.userId}
                     </span>
                     <span id="logout">
-                        <button id="logoutButton" onClick={this.userLogout}>Logout</button>
+                        <button className="small blue button" id="logoutButton" onClick={this.userLogout}>Logout</button>
                     </span>
                 </div>
            )
