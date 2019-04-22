@@ -50,7 +50,12 @@ function overrideFetch(app){
         let response;
 
         if(!init || !init.method || init.method.toUpperCase() === "GET"){
-            response = await agent.get(url);
+            try {
+                response = await agent.get(url);
+            } catch (e) {
+                console.log(e)
+            }
+
         } else if(init.method.toUpperCase() === "POST"){
             response = await agent.post(url)
                 .send(init.body)

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 export class ShowMenus extends Component{
     
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             userId: null,
             menus: []
@@ -16,15 +16,15 @@ export class ShowMenus extends Component{
     }
 
     getMenus = async () => {
-        const response = await fetch("/menus", {method: "GET"})
-        const json = await response.json()
+        const response = await fetch("/menus", {method: "GET"});
+        const json = await response.json();
         this.setState({
             menus: json
         })
-    }
+    };
 
     render(){
-        const {menus} = this.state
+        const {menus} = this.state;
         let table = 
         <table id="menuTable">
             <thead>

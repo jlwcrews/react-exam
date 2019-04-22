@@ -1,8 +1,6 @@
-const express = require('express')
+const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const app = express()
-const ews = require('express-ws')(app);
 const WebSocket = require('ws');
 const UserRepo = require('./userrepo');
 const DishRepo = require('./dishrepo');
@@ -11,9 +9,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const session = require("express-session");
+const app = express();
+const ews = require('express-ws')(app);
 
 let messageCounter = 0;
-const chatMessages = []
+const chatMessages = [];
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -23,36 +23,37 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(passport.session());
 
 
 //this section handles requests involving dishes
 app.get("/dishes", (req, res) => {
-    const dishes = DishRepo.getDishes()
+    const dishes = DishRepo.getDishes();
     res.send(dishes)
 })
 
 app.get("/dish/:id", (req, res) => {
-    const id = req.params["id"]
-    const dish = DishRepo.getDish(id)
+    const id = req.params["id"];
+    const dish = DishRepo.getDish(id);
     res.json(dish)
 })
 
 app.delete("/dish/:id", (req, res) => {
-    const id = req.params["id"]
-    console.log("Id in app.js: " + id)
+    const id = req.params["id"];
+    console.log("Id in app.js: " + id);
     res.json(DishRepo.deleteDish(id))
 })
 
 app.post("/dish", (req, res) => {
-    const body = req.body
+    const body = req.body;
     res.json("/dish/" + DishRepo.addDish(body.name, body.type))
 })
 
 app.put("/dish/:id", (req, res) => {
-    const id = req.params["id"]
-    const body = req.body
+    const id = req.params["id"];
+    const body = req.body;
     const dish = {
         id: body.id,
         name: body.name,
@@ -63,29 +64,29 @@ app.put("/dish/:id", (req, res) => {
 
 //this section handles requests involving menus
 app.get("/menus", (req, res) => {
-    const menus = MenuRepo.getMenus()
+    const menus = MenuRepo.getMenus();
     res.json(menus)
 })
 
 app.get("/menu/:id", (req, res) => {
-    const id = req.params["id"]
-    const menu = MenuRepo.getMenu(id)
+    const id = req.params["id"];
+    const menu = MenuRepo.getMenu(id);
     res.json(menu)
 })
 
 app.delete("/menu/:id", (req, res) => {
-    const id = req.params["id"]
+    const id = req.params["id"];
     res.json(MenuRepo.deleteMenu(id))
 })
 
 app.post("/menu", (req, res) => {
-    const body = req.body
+    const body = req.body;
     res.json("/menu/" + MenuRepo.addMenu(body.day))
 })
 
 app.put("/menu/:id", (req, res) => {
-    const id = req.params["id"]
-    const body = req.body
+    const id = req.params["id"];
+    const body = req.body;
     const menu = {
         id: body.id,
         day: body.day,
@@ -164,10 +165,9 @@ app.post('/logout', function(req, res){
     res.status(204).send();
 });
 
-app.use(express.static('public'))
+
 app.use((req, res, next) => {
     res.sendFile(path.resolve(__dirname, '..', '..', 'public', 'index.html'));
 });
-
 
 module.exports = app;

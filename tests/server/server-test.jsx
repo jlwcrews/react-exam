@@ -1,5 +1,5 @@
 const request = require('supertest');
-const {app} = require('../../src/server/app');
+const app = require('../../src/server/app');
 const Users = require('../../src/server/userRepo');
 const Menus = require('../../src/server/menuRepo');
 const Dishes = require('../../src/server/dishRepo');

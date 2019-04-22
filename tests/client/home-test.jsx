@@ -1,39 +1,38 @@
-const { app } = require('../../src/server/app')
+const app = require('../../src/server/app');
 import React from 'react'
 import { Home } from '../../src/client/home'
 import { TopBar } from '../../src/client/topbar'
 import { ShowMenus } from '../../src/client/showmenus'
-import Menu from '../../src/client/menu'
 import { shallow, mount,  } from 'enzyme'
 import { MemoryRouter } from 'react-router';
 const {stubFetch, flushPromises, overrideFetch, asyncCheckCondition, overrideWebSocket} = require('../mytest-utils');
 
-const menuRepo = require('../../src/server/menuRepo')
+const menuRepo = require('../../src/server/menuRepo');
 
 describe('TopBar component', () =>{
     it('should start with null state', () => {
-        const wrapper = shallow(<TopBar/>)
-        const userIdState = wrapper.state().userId
-        const passwordState = wrapper.state().password
-        expect(userIdState).toBeNull
-        expect(passwordState).toBeNull
-    })
+        const wrapper = shallow(<TopBar/>);
+        const userIdState = wrapper.state().userId;
+        const passwordState = wrapper.state().password;
+        expect(userIdState).toBeNull;
+        expect(passwordState).toBeNull;
+    });
 
     it('testing not logged in', () => {
-        const wrapper = shallow(<TopBar/>)
-        const loginButtonText = wrapper.find('#loginButton').text()
-        expect(loginButtonText).toEqual('Login')
+        const wrapper = shallow(<TopBar/>);
+        const loginButtonText = wrapper.find('#loginButton').text();
+        expect(loginButtonText).toEqual('Login');
     })
-})
+});
 
 describe('Home component', () =>{
-    overrideFetch(app)
+    overrideFetch(app);
     it('testing display', () => {
-        const wrapper = mount(<Home/>)
-        const loginButtonText = wrapper.find('#loginButton').text()
-        expect(loginButtonText).toEqual('Login')
+        const wrapper = mount(<Home/>);
+        const loginButtonText = wrapper.find('#loginButton').text();
+        expect(loginButtonText).toEqual('Login');
     })
-})
+});
 
 test("Test that dishes displays", async () => {
 
@@ -49,7 +48,7 @@ test("Test that dishes displays", async () => {
     const predicate = () => {
         driver.update();
         const tableSearch = driver.find('#menuTable');
-        const tableIsDisplayed =  (tableSearch.length >= 1);
+        const tableIsDisplayed = (tableSearch.length >= 1);
         return tableIsDisplayed;
     };
 
