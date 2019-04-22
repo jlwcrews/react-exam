@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 
 export class Dish extends Component{
 
@@ -43,7 +42,7 @@ export class Dish extends Component{
                 <input type="text" value={this.state.name} id="name" onChange={this.updateName}/>
                 Type
                 <input type="text" value={this.state.type} id="type" onChange={this.updateType}/>
-                <button className="btn">Ok</button>
+                <button id="dishSubmitButton" className="btn">Ok</button>
                 </form>
             </div>
         )

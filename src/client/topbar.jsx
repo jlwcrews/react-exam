@@ -7,7 +7,8 @@ export class TopBar extends Component{
         this.state = {
             userId: null,
             password: null,
-            callback: null
+            callback: null,
+            error: null
         }
     }
 
@@ -40,11 +41,11 @@ export class TopBar extends Component{
 
         if(response.status === 204){
             this.props.callback(this.state.userId)
-            document.getElementById("errorLogin").style.display = "none"
+            this.setState({error: null})
         }
 
         if(response.status === 401){
-            document.getElementById("errorLogin").style.display = "inline"
+            this.setState({error: "Invalid username or password"})
         }
     }
 
@@ -67,18 +68,21 @@ export class TopBar extends Component{
                         <button className="small blue button" id="loginButton" onClick={this.userLogin}>Login</button>
                     </span>
                     <span id="errorLogin">
-                        Invalid username or password
+                        {this.state.error}
                     </span>
                 </div>
            )
         } else {
             return(
                 <div id = "menuBar">
-                    <span id="username">
+                    <span id="usernameLoggedIn">
                         {this.props.userId}
                     </span>
                     <span id="logout">
                         <button className="small blue button" id="logoutButton" onClick={this.userLogout}>Logout</button>
+                    </span>
+                    <span id="errorLogin">
+                        {this.state.error}
                     </span>
                 </div>
            )

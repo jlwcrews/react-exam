@@ -69,7 +69,7 @@ class Menu extends Component{
 
     render(){
         const {allDishes, menu} = this.state
-        let menuTable = <table>
+        let menuTable = <table id="menuTable">
             <thead>
                 <tr>
                     <th></th>

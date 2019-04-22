@@ -26,7 +26,7 @@ export class EditMenu extends Component{
 
         if(menu != null){
            return(         
-            <div>
+            <div id="editMenuContainer">
                 <Menu
                     id={id} 
                     menu={menu}/> 
